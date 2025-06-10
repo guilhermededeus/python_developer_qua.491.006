@@ -21,3 +21,14 @@ git status
 git add .
 # Adicionar arquivos ao stage
 
+git commit -m "mensagem do commit"
+# Commitar as alterações com uma mensagem
+
+git branch -M main
+# Cria uma branch chamada main
+
+git remote add origin <url>
+# Adicionar repositório remoto
+
+git push -u origin main
+# Enviar alterações para o repositório remoto
