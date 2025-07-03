@@ -1,0 +1,23 @@
+[
+    {
+        "nome": "João Silva",
+        "idade": 30,
+        "email": "joao.silva@email.com",
+        "profissão": "QA",
+        "enderecos": [
+            {
+                "tipo": "residencial",
+                "rua": "Rua das Flores",
+                "numero": 123,
+                "cidade": "São Paulo"
+            },
+            {
+                "tipo": "comercial",
+                "rua": "Avenida Central",
+                "numero": 456,
+                "cidade": "Rio de Janeiro"
+            }
+        ],
+        "ativo": true
+    }
+]
