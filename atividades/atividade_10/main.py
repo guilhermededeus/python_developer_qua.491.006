@@ -46,24 +46,31 @@ while True:
                 diretorio = input("Diretório onde deseja salvar o arquivo: ").strip()
 
                 if not os.path.exists(diretorio):
-                    criar = input(f"Diretório '{diretorio}' não existe. Deseja criá-lo? [S]im / [N]ão: ").strip().lower()
-                    if criar == "s":
-                        os.makedirs(diretorio)
-                        print("Diretório criado com sucesso.")
-                    else:
-                        print("Voltando ao diretório padrão.")
-                        diretorio = "."
+                    while True:
+                        criar = input(f"Diretório '{diretorio}' não existe. Deseja criá-lo? [S]im / [N]ão: ").strip().lower()
+
+                        match criar:
+                            case "s":
+                                os.makedirs(diretorio)
+                                print("Diretório criado com sucesso.")
+                                break
+                            case "n":
+                                print("Voltando ao diretório padrão.")
+                                diretorio = "."
+                                break
+                            case _:
+                                print("Opção inválida! Tente novamente.")
+                                continue
 
                 caminho_arquivo = os.path.join(diretorio, f"{nome_arquivo}.json")
-
                 with open(caminho_arquivo, "w", encoding="utf-8") as f:
                     json.dump([], f, ensure_ascii=False, indent=4)
 
                 print(f"Arquivo '{nome_arquivo}.json' criado com sucesso em '{diretorio}'.")
-                arquivo = nome_arquivo
+                arquivo = caminho_arquivo  # Se quiser salvar o caminho completo
 
             except Exception as e:
-                print(f"Erro ao criar o arquivo. {e}")
+                print(f"Erro ao criar o arquivo. {e}.")
             continue
 
         case "2":
@@ -73,7 +80,7 @@ while True:
                     print("Diretório não encontrado. Voltando ao diretório padrão.")
                     diretorio = "."
 
-                arquivo = input("Informe o nome do arquivo (sem extensão): ").strip().lower()
+                arquivo = input("Informe o nome do arquivo: ").strip().lower()
                 caminho_arquivo = f"{diretorio}/{arquivo}.json"
 
                 with open(caminho_arquivo, "r", encoding="utf-8") as f:
@@ -90,12 +97,12 @@ while True:
         case "3":
             try:
                 usuario = {}
-                usuario['nome'] = input("Informe o nome: ").strip().title()
-                usuario['data_nasc'] = input("Informe a data de nascimento: ").strip().replace(".", "/")
-                usuario['cpf'] = input("Informe o CPF: ").strip()
-                usuario['email'] = input("Informe o e-mail: ").strip().lower()
-                usuario['telefone'] = input("Informe o telefone: ").strip()
-                usuario['filme'] = input("Informe seu filme favorito: ").strip().title()
+                usuario['nome'] = input("Nome: ").strip().title()
+                usuario['data_nasc'] = input("Data de nascimento: ").strip().replace(".", "/")
+                usuario['cpf'] = input("CPF: ").strip()
+                usuario['email'] = input("e-mail: ").strip().lower()
+                usuario['telefone'] = input("Telefone: ").strip()
+                usuario['filme'] = input("Filme favorito: ").strip().title()
 
                 with open(f"{diretorio}/{arquivo}.json", "r", encoding="utf-8") as f:
                     usuarios = json.load(f)
@@ -108,19 +115,21 @@ while True:
                 print("Usuário cadastrado com sucesso!")
 
             except Exception as e:
-                print(f"Erro ao cadastrar usuário. {e}")
+                print(f"Erro ao cadastrar usuário. {e}.")
             continue
 
         case "4":
             try:
                 with open(f"{diretorio}/{arquivo}.json", "r", encoding="utf-8") as f:
                     usuarios = json.load(f)
-
-                print(f"\n{'-'*20} LISTA DE PESSOAS {'-'*20}\n")
-                for usuario in usuarios:
-                    for chave in usuario:
-                        print(f"{chave.capitalize()}: {usuario.get(chave)}")
-                    print("-"*40)
+                if not usuarios:
+                    print("Nenhum usuário cadastrado!")
+                else:
+                    print(f"\n{'-=-'*6} USUÁRIOS {'-=-'*6}\n")
+                    for usuario in usuarios:
+                        for chave in usuario:
+                            print(f"{chave.capitalize()}: {usuario.get(chave)}")
+                        print("-=-"*18)
 
             except Exception as e:
                 print(f"Erro ao listar usuários. {e}.")
@@ -141,11 +150,11 @@ while True:
                         encontrados.append(usuario)
 
                 if encontrados:
-                    print(f"\n{'-'*20} RESULTADOS DA PESQUISA {'-'*20}\n")
+                    print(f"\n{'-=-'*4} RESULTADOS DA PESQUISA {'-'*4}\n")
                     for usuario in encontrados:
                         for chave_usuario in usuario:
                             print(f"{chave_usuario.capitalize()}: {usuario.get(chave_usuario)}")
-                        print("-"*40)
+                        print("-=-"*10)
                 else:
                     print("Nenhum usuário encontrado com esse critério.")
 
@@ -164,17 +173,18 @@ while True:
 
                 for usuario in usuarios:
                     if usuario["cpf"] == cpf_alvo:
-                        print("\nUsuário encontrado: ")
+                        print(f"\n{"-=-"*2} USUÁRIO ENCONTRADO {"-=-"*10}\n")
                         for chave in usuario:
                             print(f"{chave.capitalize()}: {usuario.get(chave)}")
-                        print("-"*40)
+                        print("-=-"*10)
 
-                        usuario['nome'] = input("Informe o nome: ").strip().title()
-                        usuario['data_nasc'] = input("Informe a data de nascimento: ").strip().replace(".", "/")
-                        usuario['cpf'] = input("Informe o CPF: ").strip()
-                        usuario['email'] = input("Informe o e-mail: ").strip().lower()
-                        usuario['telefone'] = input("Informe o telefone: ").strip()
-                        usuario['filme'] = input("Informe seu filme favorito: ").strip().title()
+                        usuario['nome'] = input("Nome: ").strip().title()
+                        usuario['data_nasc'] = input("Data de nascimento: ").strip().replace(".", "/")
+                        usuario['cpf'] = input("CPF: ").strip()
+                        usuario['email'] = input("e-mail: ").strip().lower()
+                        usuario['telefone'] = input("Telefone: ").strip()
+                        usuario['filme'] = input("Filme favorito: ").strip().title()
+
 
                         encontrado = True
                         break

@@ -1,1 +1,10 @@
-[]
+[
+    {
+        "nome": "Guilherme",
+        "data_nasc": "04/10/2004",
+        "cpf": "123.456.789-10",
+        "email": "guilherme@aluno.senai.br",
+        "telefone": "",
+        "filme": "Coraline"
+    }
+]
