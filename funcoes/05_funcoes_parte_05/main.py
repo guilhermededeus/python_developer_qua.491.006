@@ -29,7 +29,8 @@ if __name__ == "__main__":
                    c = float(input("Informe o valor de C: ").replace(",","."))
                    mo.limpar_tela()
                    x = mo.segundo_grau(a,b,c)
-                   print(f"O valor de x é {x:.2f}")
+                   for result in x:
+                        print(f"{result}")
                 except Exception as e:
                     print(f"Erro. {e}.")
                 finally:
