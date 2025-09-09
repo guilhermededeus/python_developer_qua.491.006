@@ -35,4 +35,3 @@ git push -u origin main
 
 Repositório > Code > Copiar URL > git clone https://github.com/guilhermededeus/python_developer_qua.491.006.git
 # Clonar repositório remoto
-
